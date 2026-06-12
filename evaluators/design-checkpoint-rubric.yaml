@@ -1,0 +1,79 @@
+# Lightweight mid-generation rubric for the design phase checkpoint.
+# Runs after 3 preview HTML files (A/B/C x landing/dashboard/detail)
+# to catch fundamental design issues BEFORE full generation of all pages.
+#
+# Only 2 criteria (coherence + originality) — craft and functionality
+# can't be assessed with only 3 pages. Score < 0.4 → abort and suggest
+# archetype changes. Score >= 0.4 → proceed to full generation.
+
+name: design-checkpoint
+version: 1
+
+scope: >
+  The 3 preview HTML files per variation (landing, dashboard, detail),
+  evaluated against the project's DESIGN_SYSTEM_{variation}.md and
+  DOMAIN_RESEARCH.md. Only checks whether the chosen archetype and
+  token system are internally coherent and domain-relevant.
+
+criteria:
+
+  coherence:
+    weight: 0.50
+    question: >
+      Do the 3 preview pages consistently apply DESIGN_SYSTEM tokens?
+      Same colors, fonts, spacing, component variants across landing,
+      dashboard, and detail?
+    anchors:
+      - score: 1.0
+        description: >
+          All 3 pages use the same color palette, font scale, and spacing
+          rhythm. Tokens from DESIGN_SYSTEM are applied uniformly. No
+          page looks like it belongs to a different variation.
+      - score: 0.6
+        description: >
+          Mostly consistent. One page has a minor token deviation (e.g.,
+          dashboard uses a slightly different shade of the primary color,
+          or detail page has different spacing). Overall family resemblance
+          is clear.
+      - score: 0.2
+        description: >
+          Pages look like different apps. Color palette shifts between
+          landing and dashboard. Typography mismatched (landing uses serif,
+          dashboard uses sans-serif). No token discipline visible.
+
+  originality:
+    weight: 0.50
+    question: >
+      Does the design reflect the domain's specific vocabulary, patterns,
+      and mental model? Or is this a generic template with find-and-replace?
+    anchors:
+      - score: 1.0
+        description: >
+          Domain vocabulary appears in copy, labels, and navigation across
+          all 3 pages. Layout choices answer domain constraints from
+          DOMAIN_RESEARCH. Competitor patterns are improved upon, not copied.
+          Variation archetype is clearly distinguishable from the other two.
+      - score: 0.5
+        description: >
+          One or two domain-specific touches (status labels, form field names)
+          but overall structure is generic. Variation has a distinct visual
+          identity but doesn't deeply reflect the domain's needs.
+      - score: 0.2
+        description: >
+          Generic CRUD/dashboard template. No domain vocabulary. Variation
+          could be confused with the other two variations. Competitor
+          research not applied.
+
+output_format:
+  type: json
+  required_fields:
+    - overall_score
+    - weighted_breakdown
+    - should_proceed            # boolean — true if score >= 0.4
+    - recommendation            # if not proceeding: which archetype to try instead
+    - rationale
+  notes: >
+    overall_score = sum(criterion_score * criterion_weight) rounded to 3 dp.
+    should_proceed = overall_score >= 0.4.
+    If not proceeding, recommendation must suggest a different archetype
+    direction (e.g., "try dark vibrant instead of editorial minimal").
