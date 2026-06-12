@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+  <title>{{PAGE_TITLE}} | {{PROJECT_NAME}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family={{FONT_HEADING}}:wght@400;500;600;700;800&family={{FONT_BODY}}:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '{{PRIMARY_COLOR}}',
+            accent: '{{ACCENT_COLOR}}',
+            success: '{{SUCCESS_COLOR}}',
+            warning: '{{WARNING_COLOR}}',
+            danger: '{{ERROR_COLOR}}',
+          },
+          fontFamily: {
+            heading: ['{{FONT_HEADING}}', 'sans-serif'],
+            body: ['{{FONT_BODY}}', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '{{CARD_RADIUS}}',
+            btn: '{{BUTTON_RADIUS}}',
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --bg: {{SURFACE_BG}};
+      --surface: {{SURFACE_COLOR}};
+      --text-primary: {{TEXT_PRIMARY}};
+      --text-secondary: {{TEXT_SECONDARY}};
+      --border: {{BORDER_COLOR}};
+      --primary: {{PRIMARY_COLOR}};
+      --accent: {{ACCENT_COLOR}};
+    }
+    [data-theme="dark"] {
+      --bg: {{BG_DARK}};
+      --surface: {{SURFACE_DARK}};
+      --text-primary: {{TEXT_PRIMARY_DARK}};
+      --text-secondary: {{TEXT_SECONDARY_DARK}};
+      --border: {{BORDER_DARK}};
+    }
+    body { font-family: '{{FONT_BODY}}', sans-serif; background: var(--bg); color: var(--text-primary); }
+    .hero-gradient { background: linear-gradient(135deg, {{PRIMARY_COLOR}}, {{PRIMARY_GRADIENT_END}}); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="{{BG_CLASS}} {{TEXT_CLASS}}">
+  <div class="max-w-[1440px] mx-auto">
+    {{NAVIGATION}}
+    <main>
+      <section class="hero-gradient text-white px-4 lg:px-8 pt-24 lg:pt-32 pb-16 lg:pb-24">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading leading-tight mb-6">
+            {{HERO_HEADING}}
+          </h1>
+          <p class="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8">
+            {{HERO_SUBTITLE}}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{CTA_PRIMARY_LINK}}" class="inline-flex items-center justify-center h-12 px-8 bg-white text-[var(--primary)] font-semibold rounded-btn hover:bg-white/90 transition-colors duration-200 cursor-pointer">
+              {{CTA_PRIMARY_TEXT}}
+            </a>
+            <a href="{{CTA_SECONDARY_LINK}}" class="inline-flex items-center justify-center h-12 px-8 border-2 border-white/30 text-white font-semibold rounded-btn hover:bg-white/10 transition-colors duration-200 cursor-pointer">
+              {{CTA_SECONDARY_TEXT}}
+            </a>
+          </div>
+        </div>
+      </section>
+      {{FEATURES_SECTION}}
+      {{HOW_IT_WORKS_SECTION}}
+      {{PRICING_SECTION}}
+      <section class="px-4 lg:px-8 py-16 lg:py-24 bg-[var(--surface)]">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading mb-4">{{TESTIMONIAL_HEADING}}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            {{TESTIMONIALS}}
+          </div>
+        </div>
+      </section>
+      <section class="px-4 lg:px-8 py-16 lg:py-24">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-2xl sm:text-3xl font-bold font-heading mb-4">{{FINAL_CTA_HEADING}}</h2>
+          <p class="text-[var(--text-secondary)] mb-8">{{FINAL_CTA_SUBTITLE}}</p>
+          <a href="{{FINAL_CTA_LINK}}" class="inline-flex items-center justify-center h-12 px-8 bg-[var(--primary)] text-white font-semibold rounded-btn hover:opacity-90 transition-opacity duration-200 cursor-pointer">
+            {{FINAL_CTA_TEXT}}
+          </a>
+        </div>
+      </section>
+    </main>
+    {{FOOTER}}
+  </div>
+  {{VARIATION_NAV}}
+  <script>lucide.createIcons();</script>
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</body>
+</html>

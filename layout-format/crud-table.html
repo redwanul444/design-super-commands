@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+  <title>{{PAGE_TITLE}} | {{PROJECT_NAME}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family={{FONT_HEADING}}:wght@400;500;600;700&family={{FONT_BODY}}:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '{{PRIMARY_COLOR}}',
+            accent: '{{ACCENT_COLOR}}',
+            success: '{{SUCCESS_COLOR}}',
+            warning: '{{WARNING_COLOR}}',
+            danger: '{{ERROR_COLOR}}',
+          },
+          fontFamily: {
+            heading: ['{{FONT_HEADING}}', 'sans-serif'],
+            body: ['{{FONT_BODY}}', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '{{CARD_RADIUS}}',
+            btn: '{{BUTTON_RADIUS}}',
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --bg: {{SURFACE_BG}};
+      --surface: {{SURFACE_COLOR}};
+      --text-primary: {{TEXT_PRIMARY}};
+      --text-secondary: {{TEXT_SECONDARY}};
+      --border: {{BORDER_COLOR}};
+      --primary: {{PRIMARY_COLOR}};
+      --accent: {{ACCENT_COLOR}};
+    }
+    [data-theme="dark"] {
+      --bg: {{BG_DARK}};
+      --surface: {{SURFACE_DARK}};
+      --text-primary: {{TEXT_PRIMARY_DARK}};
+      --text-secondary: {{TEXT_SECONDARY_DARK}};
+      --border: {{BORDER_DARK}};
+    }
+    body { font-family: '{{FONT_BODY}}', sans-serif; background: var(--bg); color: var(--text-primary); }
+    .table-row:hover { background: var(--surface); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    @media (max-width: 640px) {
+      .table-responsive thead { display: none; }
+      .table-responsive tbody tr { display: block; margin-bottom: 1rem; border: 1px solid var(--border); border-radius: {{CARD_RADIUS}}; padding: 1rem; }
+      .table-responsive tbody td { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+      .table-responsive tbody td:last-child { border-bottom: none; }
+      .table-responsive tbody td::before { content: attr(data-label); font-weight: 600; color: var(--text-secondary); font-size: 0.875rem; }
+    }
+  </style>
+</head>
+<body class="min-h-screen {{BG_CLASS}} {{TEXT_CLASS}}">
+  <div class="max-w-[1440px] mx-auto">
+    {{NAVIGATION}}
+    <main class="p-4 lg:p-8 pt-20 lg:pt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div>
+          <h1 class="text-{{H1_SIZE}} font-bold font-heading">{{PAGE_HEADING}}</h1>
+          <p class="text-[var(--text-secondary)] text-sm mt-1">{{PAGE_SUBTITLE}}</p>
+        </div>
+        <div class="flex items-center gap-3">
+          {{ACTION_BUTTONS}}
+        </div>
+      </div>
+      <div class="bg-[var(--surface)] {{BORDER_CLASS}} rounded-card {{SHADOW_CLASS}} overflow-hidden">
+        <div class="p-4 border-b border-[var(--border)] flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-1">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-secondary)]"></i>
+            <input type="search" placeholder="{{SEARCH_PLACEHOLDER}}" class="w-full h-10 pl-10 pr-4 bg-[var(--bg)] border border-[var(--border)] rounded-btn text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent">
+          </div>
+          <div class="flex gap-2">
+            {{FILTER_CONTROLS}}
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full table-responsive">
+            <thead>
+              <tr class="border-b border-[var(--border)]">
+                {{TABLE_HEADERS}}
+              </tr>
+            </thead>
+            <tbody>
+              {{TABLE_ROWS}}
+            </tbody>
+          </table>
+        </div>
+        <div class="p-4 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-sm text-[var(--text-secondary)]">{{PAGINATION_INFO}}</p>
+          <div class="flex items-center gap-2">
+            {{PAGINATION_CONTROLS}}
+          </div>
+        </div>
+      </div>
+    </main>
+    {{FOOTER}}
+  </div>
+  {{VARIATION_NAV}}
+  <script>lucide.createIcons();</script>
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</body>
+</html>

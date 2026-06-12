@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+  <title>{{PAGE_TITLE}} | {{PROJECT_NAME}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family={{FONT_HEADING}}:wght@400;500;600;700&family={{FONT_BODY}}:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '{{PRIMARY_COLOR}}',
+            accent: '{{ACCENT_COLOR}}',
+            success: '{{SUCCESS_COLOR}}',
+            warning: '{{WARNING_COLOR}}',
+            danger: '{{ERROR_COLOR}}',
+          },
+          fontFamily: {
+            heading: ['{{FONT_HEADING}}', 'sans-serif'],
+            body: ['{{FONT_BODY}}', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '{{CARD_RADIUS}}',
+            btn: '{{BUTTON_RADIUS}}',
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --bg: {{SURFACE_BG}};
+      --surface: {{SURFACE_COLOR}};
+      --text-primary: {{TEXT_PRIMARY}};
+      --text-secondary: {{TEXT_SECONDARY}};
+      --border: {{BORDER_COLOR}};
+      --primary: {{PRIMARY_COLOR}};
+      --accent: {{ACCENT_COLOR}};
+    }
+    [data-theme="dark"] {
+      --bg: {{BG_DARK}};
+      --surface: {{SURFACE_DARK}};
+      --text-primary: {{TEXT_PRIMARY_DARK}};
+      --text-secondary: {{TEXT_SECONDARY_DARK}};
+      --border: {{BORDER_DARK}};
+    }
+    body { font-family: '{{FONT_BODY}}', sans-serif; background: var(--bg); color: var(--text-primary); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen {{BG_CLASS}} {{TEXT_CLASS}}">
+  <div class="max-w-[1440px] mx-auto">
+    {{NAVIGATION}}
+    <main class="p-4 lg:p-8 pt-20 lg:pt-24">
+      <div class="flex items-center gap-2 text-sm text-[var(--text-secondary)] mb-6">
+        {{BREADCRUMB}}
+      </div>
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1 min-w-0 space-y-6">
+          <div class="bg-[var(--surface)] {{BORDER_CLASS}} rounded-card {{SHADOW_CLASS}} p-6">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+              <div>
+                <h1 class="text-{{H1_SIZE}} font-bold font-heading">{{PAGE_HEADING}}</h1>
+                <div class="flex items-center gap-3 mt-2">
+                  {{STATUS_BADGES}}
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                {{HEADER_ACTIONS}}
+              </div>
+            </div>
+            {{DETAIL_CONTENT}}
+          </div>
+          {{DETAIL_SECTIONS}}
+        </div>
+        <aside class="w-full lg:w-80 flex-shrink-0 space-y-6">
+          <div class="bg-[var(--surface)] {{BORDER_CLASS}} rounded-card {{SHADOW_CLASS}} p-6">
+            <h3 class="text-sm font-semibold font-heading text-[var(--text-secondary)] uppercase tracking-wider mb-4">{{META_TITLE}}</h3>
+            <dl class="space-y-4">
+              {{META_FIELDS}}
+            </dl>
+          </div>
+          {{SIDEBAR_EXTRAS}}
+        </aside>
+      </div>
+    </main>
+    {{FOOTER}}
+  </div>
+  {{VARIATION_NAV}}
+  <script>lucide.createIcons();</script>
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</body>
+</html>

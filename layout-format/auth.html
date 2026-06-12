@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+  <title>{{PAGE_TITLE}} | {{PROJECT_NAME}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family={{FONT_HEADING}}:wght@400;500;600;700&family={{FONT_BODY}}:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '{{PRIMARY_COLOR}}',
+            accent: '{{ACCENT_COLOR}}',
+            success: '{{SUCCESS_COLOR}}',
+            danger: '{{ERROR_COLOR}}',
+          },
+          fontFamily: {
+            heading: ['{{FONT_HEADING}}', 'sans-serif'],
+            body: ['{{FONT_BODY}}', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '{{CARD_RADIUS}}',
+            btn: '{{BUTTON_RADIUS}}',
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --bg: {{SURFACE_BG}};
+      --surface: {{SURFACE_COLOR}};
+      --text-primary: {{TEXT_PRIMARY}};
+      --text-secondary: {{TEXT_SECONDARY}};
+      --border: {{BORDER_COLOR}};
+      --primary: {{PRIMARY_COLOR}};
+      --accent: {{ACCENT_COLOR}};
+    }
+    [data-theme="dark"] {
+      --bg: {{BG_DARK}};
+      --surface: {{SURFACE_DARK}};
+      --text-primary: {{TEXT_PRIMARY_DARK}};
+      --text-secondary: {{TEXT_SECONDARY_DARK}};
+      --border: {{BORDER_DARK}};
+    }
+    body { font-family: '{{FONT_BODY}}', sans-serif; background: var(--bg); color: var(--text-primary); }
+    .brand-panel { background: linear-gradient(135deg, {{PRIMARY_COLOR}}, {{PRIMARY_GRADIENT_END}}); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen {{BG_CLASS}} {{TEXT_CLASS}}">
+  <div class="flex min-h-screen">
+    <div class="hidden lg:flex lg:w-5/12 brand-panel items-center justify-center p-12">
+      <div class="text-white text-center max-w-sm">
+        <div class="mb-6">
+          <i data-lucide="{{BRAND_ICON}}" class="w-16 h-16 mx-auto"></i>
+        </div>
+        <h2 class="text-3xl font-bold font-heading mb-4">{{BRAND_HEADING}}</h2>
+        <p class="text-white/70 text-lg">{{BRAND_SUBTITLE}}</p>
+      </div>
+    </div>
+    <div class="w-full lg:w-7/12 flex items-center justify-center p-4 sm:p-8">
+      <div class="w-full max-w-md">
+        <div class="lg:hidden text-center mb-8">
+          <h2 class="text-2xl font-bold font-heading text-[var(--primary)]">{{PROJECT_NAME}}</h2>
+        </div>
+        <div class="bg-[var(--surface)] {{BORDER_CLASS}} rounded-card {{SHADOW_CLASS}} p-6 sm:p-8">
+          <h1 class="text-2xl font-bold font-heading mb-2">{{FORM_HEADING}}</h1>
+          <p class="text-[var(--text-secondary)] text-sm mb-6">{{FORM_SUBTITLE}}</p>
+          <form class="space-y-4" onsubmit="event.preventDefault()">
+            {{FORM_FIELDS}}
+            <div class="flex items-center justify-between text-sm">
+              {{FORM_EXTRAS}}
+            </div>
+            <button type="submit" class="w-full h-11 bg-[var(--primary)] text-white font-semibold rounded-btn hover:opacity-90 transition-opacity duration-200 cursor-pointer flex items-center justify-center gap-2">
+              <i data-lucide="log-in" class="w-4 h-4"></i>
+              {{SUBMIT_BUTTON_TEXT}}
+            </button>
+          </form>
+          {{SOCIAL_LOGIN}}
+          <p class="text-center text-sm text-[var(--text-secondary)] mt-6">
+            {{BOTTOM_LINK_TEXT}} <a href="{{BOTTOM_LINK_HREF}}" class="text-[var(--primary)] font-medium hover:underline cursor-pointer">{{BOTTOM_LINK_LABEL}}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{VARIATION_NAV}}
+  <script>lucide.createIcons();</script>
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</body>
+</html>
